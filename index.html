@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏆 Прогноз ЧМ</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#0f172a;
+    color:white;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+button{
+    display:block;
+    margin:20px auto;
+    padding:12px 20px;
+    font-size:16px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:#22c55e;
+    color:white;
+}
+
+button:hover{
+    background:#16a34a;
+}
+
+.match{
+    background:#1e293b;
+    padding:10px;
+    margin:10px auto;
+    width:260px;
+    border-radius:10px;
+}
+
+.team{
+    background:#334155;
+    padding:10px;
+    margin:6px 0;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.team:hover{
+    background:#475569;
+}
+
+.team.selected{
+    background:#16a34a;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🏆 Прогноз плей-офф</h1>
+
+<div class="match" id="m1">
+<div class="team" onclick="select('m1','Аргентина')">🇦🇷 Аргентина</div>
+<div class="team" onclick="select('m1','Нидерланды')">🇳🇱 Нидерланды</div>
+</div>
+
+<div class="match" id="m2">
+<div class="team" onclick="select('m2','Франция')">🇫🇷 Франция</div>
+<div class="team" onclick="select('m2','Англия')">🏴 Англия</div>
+</div>
+
+<div class="match" id="m3">
+<div class="team" onclick="select('m3','Бразилия')">🇧🇷 Бразилия</div>
+<div class="team" onclick="select('m3','Португалия')">🇵🇹 Португалия</div>
+</div>
+
+<div class="match" id="m4">
+<div class="team" onclick="select('m4','Испания')">🇪🇸 Испания</div>
+<div class="team" onclick="select('m4','Германия')">🇩🇪 Германия</div>
+</div>
+
+<button onclick="send()">📤 Отправить прогноз</button>
+
+<script>
+
+const state = {
+    m1:null,
+    m2:null,
+    m3:null,
+    m4:null
+};
+
+function select(match, team){
+
+    state[match] = team;
+
+    const el = document.querySelectorAll("#"+match+" .team");
+
+    el.forEach(t=>{
+        t.classList.remove("selected");
+        if(t.textContent.includes(team)){
+            t.classList.add("selected");
+        }
+    });
+}
+
+function send(){
+
+    const name = prompt("Введите ваше имя:");
+
+    if(!name){
+        alert("Имя обязательно");
+        return;
+    }
+
+    // ПРОВЕРКА
+    if(!state.m1 || !state.m2 || !state.m3 || !state.m4){
+        alert("Заполни все матчи!");
+        return;
+    }
+
+    fetch("https://script.google.com/macros/s/AKfycbzIDFRF2Hj5OiTlAO2QxaMknswwz8rwkpmxuIU851KmKCtxS0h_4Q2DXZanMzu97Jp6/exec", {
+        method:"POST",
+        body: JSON.stringify({
+            name:name,
+            bracket:state
+        })
+    });
+
+    alert("Прогноз отправлен!");
+}
+
+</script>
+
+</body>
+</html>
