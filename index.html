@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏆 Прогноз ЧМ-2026</title>
+<title>🏆 Актуальный Прогноз Плей-офф ЧМ-2026</title>
 
 <style>
 body {
@@ -16,46 +16,60 @@ body {
 
 h1 {
     text-align: center;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #94a3b8;
     margin-bottom: 30px;
+    font-size: 14px;
 }
 
 /* Стилизация сетки */
 .bracket-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-    gap: 15px;
+    align-items: stretch;
     overflow-x: auto;
-    padding-bottom: 20px;
+    gap: 20px;
+    padding: 20px 0;
 }
 
-.column {
+.bracket-side {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+}
+
+.round {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 900px; /* Фиксированная высота для выравнивания связей */
-    min-width: 180px;
+    gap: 15px;
+    min-width: 190px;
 }
 
-.center-column {
+.center-stage {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 40px;
     min-width: 220px;
 }
 
+/* Карточка матча */
 .match {
     background: #1e293b;
     padding: 8px;
-    border-radius: 8px;
+    border-radius: 10px;
     border: 1px solid #334155;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    position: relative;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
 }
 
-.match-title {
+.match-info {
     font-size: 11px;
     color: #94a3b8;
     margin-bottom: 4px;
@@ -70,11 +84,12 @@ h1 {
     border-radius: 6px;
     cursor: pointer;
     font-size: 13px;
+    transition: all 0.2s ease;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: all 0.2s;
-    min-height: 18px;
+    display: flex;
+    align-items: center;
 }
 
 .team:hover {
@@ -86,16 +101,16 @@ h1 {
     font-weight: bold;
 }
 
-.team.empty {
-    background: #1e293b;
-    border: 1px dashed #475569;
-    color: #64748b;
+.team.disabled {
     cursor: not-allowed;
+    opacity: 0.5;
+    background: #111827;
 }
 
+/* Кнопка */
 button {
     display: block;
-    margin: 30px auto;
+    margin: 40px auto;
     padding: 15px 30px;
     font-size: 18px;
     font-weight: bold;
@@ -104,11 +119,24 @@ button {
     cursor: pointer;
     background: #22c55e;
     color: white;
-    box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4);
+    transition: background 0.2s;
 }
 
 button:hover {
     background: #16a34a;
+}
+
+@media (max-width: 1200px) {
+    .bracket-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .bracket-side {
+        flex-direction: row;
+        width: 100%;
+        overflow-x: auto;
+    }
 }
 </style>
 </head>
@@ -116,202 +144,208 @@ button:hover {
 <body>
 
 <h1>🏆 Прогноз плей-офф ЧМ-2026</h1>
+<div class="subtitle">Сетка сформирована на основе актуальных результатов группового этапа</div>
 
 <div class="bracket-container">
     
-    <!-- ЛЕВАЯ СТОРОНА: 1/16 финала -->
-    <div class="column">
-        <div class="match" id="m74">
-            <div class="match-title"><span>M74</span> <span>29.06</span></div>
-            <div class="team" onclick="select('m74', '🇩🇪 Германия', 'm89', 0)">🇩🇪 Германия</div>
-            <div class="team" onclick="select('m74', '❓ 3ABCDF', 'm89', 0)">❓ 3ABCDF</div>
+    <!-- ЛЕВАЯ ЧАСТЬ СЕТКИ -->
+    <div class="bracket-side">
+        <!-- 1/16 Финала (Лево) -->
+        <div class="round">
+            <div class="match" id="m74">
+                <div class="match-info"><span>M74</span> <span>29.06</span></div>
+                <div class="team" onclick="select('m74', '🇩🇪 Германия')">🇩🇪 Германия</div>
+                <div class="team" onclick="select('m74', '🇩🇰 Дания')">🇩🇰 Дания</div>
+            </div>
+            <div class="match" id="m77">
+                <div class="match-info"><span>M77</span> <span>01.07</span></div>
+                <div class="team" onclick="select('m77', '🇮🇹 Италия')">🇮🇹 Италия</div>
+                <div class="team" onclick="select('m77', '🇺🇦 Украина')">🇺🇦 Украина</div>
+            </div>
+            <div class="match" id="m73">
+                <div class="match-info"><span>M73</span> <span>28.06</span></div>
+                <div class="team" onclick="select('m73', '🇿🇦 ЮАР')">🇿🇦 ЮАР</div>
+                <div class="team" onclick="select('m73', '🇨🇦 Канада')">🇨🇦 Канада</div>
+            </div>
+            <div class="match" id="m75">
+                <div class="match-info"><span>M75</span> <span>30.06</span></div>
+                <div class="team" onclick="select('m75', '🏴󠁧󠁢󠁥󠁮󠁧󠁿 Англия')">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Англия</div>
+                <div class="team" onclick="select('m75', '🇲🇦 Марокко')">🇲🇦 Марокко</div>
+            </div>
+            <div class="match" id="m83">
+                <div class="match-info"><span>M83</span> <span>03.07</span></div>
+                <div class="team" onclick="select('m83', '🇭🇷 Хорватия')">🇭🇷 Хорватия</div>
+                <div class="team" onclick="select('m83', '🇯🇵 Япония')">🇯🇵 Япония</div>
+            </div>
+            <div class="match" id="m84">
+                <div class="match-info"><span>M84</span> <span>02.07</span></div>
+                <div class="team" onclick="select('m84', '🇪🇸 Испания')">🇪🇸 Испания</div>
+                <div class="team" onclick="select('m84', '🇦🇺 Австралия')">🇦🇺 Австралия</div>
+            </div>
+            <div class="match" id="m81">
+                <div class="match-info"><span>M81</span> <span>02.07</span></div>
+                <div class="team" onclick="select('m81', '🇺🇸 США')">🇺🇸 США</div>
+                <div class="team" onclick="select('m81', '🇨联 Колумбия')">🇨🇴 Колумбия</div>
+            </div>
+            <div class="match" id="m82">
+                <div class="match-info"><span>M82</span> <span>01.07</span></div>
+                <div class="team" onclick="select('m82', '🇫🇷 Франция')">🇫🇷 Франция</div>
+                <div class="team" onclick="select('m82', '🇪🇨 Эквадор')">🇪🇨 Эквадор</div>
+            </div>
         </div>
-        <div class="match" id="m77">
-            <div class="match-title"><span>M77</span> <span>01.07</span></div>
-            <div class="team" onclick="select('m77', '❓ 1I', 'm89', 1)">❓ 1I</div>
-            <div class="team" onclick="select('m77', '❓ 3CDFGH', 'm89', 1)">❓ 3CDFGH</div>
+
+        <!-- 1/8 Финала (Лево) -->
+        <div class="round">
+            <div class="match" id="m89" data-deps="m74,m77">
+                <div class="match-info"><span>M89</span> <span>05.07</span></div>
+                <div class="team disabled" onclick="select('m89', this.textContent)">Ожидание M74</div>
+                <div class="team disabled" onclick="select('m89', this.textContent)">Ожидание M77</div>
+            </div>
+            <div class="match" id="m90" data-deps="m73,m75">
+                <div class="match-info"><span>M90</span> <span>04.07</span></div>
+                <div class="team disabled" onclick="select('m90', this.textContent)">Ожидание M73</div>
+                <div class="team disabled" onclick="select('m90', this.textContent)">Ожидание M75</div>
+            </div>
+            <div class="match" id="m93" data-deps="m83,m84">
+                <div class="match-info"><span>M93</span> <span>06.07</span></div>
+                <div class="team disabled" onclick="select('m93', this.textContent)">Ожидание M83</div>
+                <div class="team disabled" onclick="select('m93', this.textContent)">Ожидание M84</div>
+            </div>
+            <div class="match" id="m94" data-deps="m81,m82">
+                <div class="match-info"><span>M94</span> <span>07.07</span></div>
+                <div class="team disabled" onclick="select('m94', this.textContent)">Ожидание M81</div>
+                <div class="team disabled" onclick="select('m94', this.textContent)">Ожидание M82</div>
+            </div>
         </div>
-        <div class="match" id="m73">
-            <div class="match-title"><span>M73</span> <span>28.06</span></div>
-            <div class="team" onclick="select('m73', '🇿🇦 ЮАР', 'm90', 0)">🇿🇦 ЮАР</div>
-            <div class="team" onclick="select('m73', '🇨🇦 Канада', 'm90', 0)">🇨🇦 Канада</div>
+
+        <!-- 1/4 Финала (Лево) -->
+        <div class="round">
+            <div class="match" id="m97" data-deps="m89,m90">
+                <div class="match-info"><span>M97</span> <span>09.07</span></div>
+                <div class="team disabled" onclick="select('m97', this.textContent)">Победитель M89</div>
+                <div class="team disabled" onclick="select('m97', this.textContent)">Победитель M90</div>
+            </div>
+            <div class="match" id="m98" data-deps="m93,m94">
+                <div class="match-info"><span>M98</span> <span>10.07</span></div>
+                <div class="team disabled" onclick="select('m98', this.textContent)">Победитель M93</div>
+                <div class="team disabled" onclick="select('m98', this.textContent)">Победитель M94</div>
+            </div>
         </div>
-        <div class="match" id="m75">
-            <div class="match-title"><span>M75</span> <span>30.06</span></div>
-            <div class="team" onclick="select('m75', '❓ 1F', 'm90', 1)">❓ 1F</div>
-            <div class="team" onclick="select('m75', '🇲🇦 Марокко', 'm90', 1)">🇲🇦 Марокко</div>
-        </div>
-        <div class="match" id="m83">
-            <div class="match-title"><span>M83</span> <span>03.07</span></div>
-            <div class="team" onclick="select('m83', '❓ 2K', 'm93', 0)">❓ 2K</div>
-            <div class="team" onclick="select('m83', '❓ 2L', 'm93', 0)">❓ 2L</div>
-        </div>
-        <div class="match" id="m84">
-            <div class="match-title"><span>M84</span> <span>02.07</span></div>
-            <div class="team" onclick="select('m84', '❓ 1H', 'm93', 1)">❓ 1H</div>
-            <div class="team" onclick="select('m84', '❓ 2J', 'm93', 1)">❓ 2J</div>
-        </div>
-        <div class="match" id="m81">
-            <div class="match-title"><span>M81</span> <span>02.07</span></div>
-            <div class="team" onclick="select('m81', '🇺🇸 США', 'm94', 0)">🇺🇸 США</div>
-            <div class="team" onclick="select('m81', '❓ 3BEFIJ', 'm94', 0)">❓ 3BEFIJ</div>
-        </div>
-        <div class="match" id="m82">
-            <div class="match-title"><span>M82</span> <span>01.07</span></div>
-            <div class="team" onclick="select('m82', '❓ 1G', 'm94', 1)">❓ 1G</div>
-            <div class="team" onclick="select('m82', '❓ 3AEHIJ', 'm94', 1)">❓ 3AEHIJ</div>
+
+        <!-- 1/2 Финала (Лево) -->
+        <div class="round">
+            <div class="match" id="m101" data-deps="m97,m98">
+                <div class="match-info"><span>M101</span> <span>14.07</span></div>
+                <div class="team disabled" onclick="select('m101', this.textContent)">Победитель M97</div>
+                <div class="team disabled" onclick="select('m101', this.textContent)">Победитель M98</div>
+            </div>
         </div>
     </div>
 
-    <!-- ЛЕВАЯ СТОРОНА: 1/8 финала -->
-    <div class="column">
-        <div class="match" id="m89">
-            <div class="match-title"><span>M89</span> <span>05.07</span></div>
-            <div class="team empty" onclick="select('m89', this.textContent, 'm97', 0)">Победитель M74</div>
-            <div class="team empty" onclick="select('m89', this.textContent, 'm97', 1)">Победитель M77</div>
+    <!-- ЦЕНТР: ФИНАЛЫ -->
+    <div class="center-stage">
+        <div class="match" id="m104" data-deps="m101,m102" style="width: 200px;">
+            <div class="match-info" style="justify-content: center; font-weight: bold; color: #fbbf24;">🏆 ФИНАЛ (19.07)</div>
+            <div class="team disabled" onclick="select('m104', this.textContent)">Финалист 1</div>
+            <div class="team disabled" onclick="select('m104', this.textContent)">Финалист 2</div>
         </div>
-        <div class="match" id="m90">
-            <div class="match-title"><span>M90</span> <span>04.07</span></div>
-            <div class="team empty" onclick="select('m90', this.textContent, 'm97', 1)">Победитель M73</div>
-            <div class="team empty" onclick="select('m90', this.textContent, 'm97', 1)">Победитель M75</div>
-        </div>
-        <div class="match" id="m93">
-            <div class="match-title"><span>M93</span> <span>06.07</span></div>
-            <div class="team empty" onclick="select('m93', this.textContent, 'm98', 0)">Победитель M83</div>
-            <div class="team empty" onclick="select('m93', this.textContent, 'm98', 1)">Победитель M84</div>
-        </div>
-        <div class="match" id="m94">
-            <div class="match-title"><span>M94</span> <span>07.07</span></div>
-            <div class="team empty" onclick="select('m94', this.textContent, 'm98', 1)">Победитель M81</div>
-            <div class="team empty" onclick="select('m94', this.textContent, 'm98', 1)">Победитель M82</div>
-        </div>
-    </div>
-
-    <!-- ЛЕВАЯ СТОРОНА: Четвертьфиналы -->
-    <div class="column">
-        <div class="match" id="m97">
-            <div class="match-title"><span>M97</span> <span>09.07</span></div>
-            <div class="team empty" onclick="select('m97', this.textContent, 'm101', 0)">Победитель M89</div>
-            <div class="team empty" onclick="select('m97', this.textContent, 'm101', 1)">Победитель M90</div>
-        </div>
-        <div class="match" id="m98">
-            <div class="match-title"><span>M98</span> <span>10.07</span></div>
-            <div class="team empty" onclick="select('m98', this.textContent, 'm101', 1)">Победитель M93</div>
-            <div class="team empty" onclick="select('m98', this.textContent, 'm101', 1)">Победитель M94</div>
-        </div>
-    </div>
-
-    <!-- ЦЕНТР: Полуфиналы, Финал и Матч за 3-е место -->
-    <div class="center-column">
         
-        <!-- ФИНАЛ -->
-        <div class="match" id="m104" style="border: 2px solid #eab308;">
-            <div class="match-title" style="color: #eab308; font-weight: bold;"><span>ФИНАЛ M104</span> <span>19.07</span></div>
-            <div class="team empty" onclick="select('m104', this.textContent, null, null)">Победитель M101</div>
-            <div class="team empty" onclick="select('m104', this.textContent, null, null)">Победитель M102</div>
+        <div style="text-align: center; font-size: 12px; color: #64748b;">
+            ← Выбирайте победителей по цепочке к центру!
         </div>
+    </div>
 
-        <!-- ПОЛУФИНАЛЫ -->
-        <div style="display: flex; gap: 20px; justify-content: center;">
-            <div class="match" id="m101" style="width: 130px;">
-                <div class="match-title"><span>M101</span> <span>14.07</span></div>
-                <div class="team empty" onclick="select('m101', this.textContent, 'm104', 0, 'm103', 0)">Победитель M97</div>
-                <div class="team empty" onclick="select('m101', this.textContent, 'm104', 0, 'm103', 0)">Победитель M98</div>
+    <!-- ПРАВАЯ ЧАСТЬ СЕТКИ -->
+    <div class="bracket-side" style="flex-direction: row-reverse;">
+        <!-- 1/16 Финала (Право) -->
+        <div class="round">
+            <div class="match" id="m76">
+                <div class="match-info"><span>M76</span> <span>29.06</span></div>
+                <div class="team" onclick="select('m76', '🇧🇷 Бразилия')">🇧🇷 Бразилия</div>
+                <div class="team" onclick="select('m76', '🇰🇷 Южная Корея')">🇰🇷 Южная Корея</div>
             </div>
-            <div class="match" id="m102" style="width: 130px;">
-                <div class="match-title"><span>M102</span> <span>15.07</span></div>
-                <div class="team empty" onclick="select('m102', this.textContent, 'm104', 1, 'm103', 1)">Победитель M99</div>
-                <div class="team empty" onclick="select('m102', this.textContent, 'm104', 1, 'm103', 1)">Победитель M100</div>
+            <div class="match" id="m78">
+                <div class="match-info"><span>M78</span> <span>30.06</span></div>
+                <div class="team" onclick="select('m78', '🇨🇮 Кот-д\'Ивуар')">🇨🇮 Кот-д'Ивуар</div>
+                <div class="team" onclick="select('m78', '🇺🇾 Уругвай')">🇺🇾 Уругвай</div>
+            </div>
+            <div class="match" id="m79">
+                <div class="match-info"><span>M79</span> <span>01.07</span></div>
+                <div class="team" onclick="select('m79', '🇲🇽 Мексика')">🇲🇽 Мексика</div>
+                <div class="team" onclick="select('m79', '🇹🇷 Турция')">🇹🇷 Турция</div>
+            </div>
+            <div class="match" id="m80">
+                <div class="match-info"><span>M80</span> <span>01.07</span></div>
+                <div class="team" onclick="select('m80', '🇳🇱 Нидерланды')">🇳🇱 Нидерланды</div>
+                <div class="team" onclick="select('m80', '🇦🇹 Австрия')">🇦🇹 Австрия</div>
+            </div>
+            <div class="match" id="m86">
+                <div class="match-info"><span>M86</span> <span>04.07</span></div>
+                <div class="team" onclick="select('m86', '🇦🇷 Аргентина')">🇦🇷 Аргентина</div>
+                <div class="team" onclick="select('m86', '🇸🇪 Швеция')">🇸🇪 Швеция</div>
+            </div>
+            <div class="match" id="m88">
+                <div class="match-info"><span>M88</span> <span>03.07</span></div>
+                <div class="team" onclick="select('m88', '🇵🇹 Португалия')">🇵🇹 Португалия</div>
+                <div class="team" onclick="select('m88', '🇧🇪 Бельгия')">🇧🇪 Бельгия</div>
+            </div>
+            <div class="match" id="m85">
+                <div class="match-info"><span>M85</span> <span>03.07</span></div>
+                <div class="team" onclick="select('m85', '🇨🇭 Швейцария')">🇨🇭 Швейцария</div>
+                <div class="team" onclick="select('m85', '🇺🇿 Узбекистан')">🇺🇿 Узбекистан</div>
+            </div>
+            <div class="match" id="m87">
+                <div class="match-info"><span>M87</span> <span>04.07</span></div>
+                <div class="team" onclick="select('m87', '🇲🇦 Марокко')">🇲🇦 Марокко</div>
+                <div class="team" onclick="select('m87', '🇮🇷 Иран')">🇮🇷 Иран</div>
             </div>
         </div>
 
-        <!-- МАТЧ ЗА 3-Е МЕСТО -->
-        <div class="match" id="m103">
-            <div class="match-title"><span>3-Е МЕСТО M103</span> <span>19.07</span></div>
-            <div class="team empty" onclick="select('m103', this.textContent, null, null)">Проигравший M101</div>
-            <div class="team empty" onclick="select('m103', this.textContent, null, null)">Проигравший M102</div>
+        <!-- 1/8 Финала (Право) -->
+        <div class="round">
+            <div class="match" id="m91" data-deps="m76,m78">
+                <div class="match-info"><span>M91</span> <span>05.07</span></div>
+                <div class="team disabled" onclick="select('m91', this.textContent)">Ожидание M76</div>
+                <div class="team disabled" onclick="select('m91', this.textContent)">Ожидание M78</div>
+            </div>
+            <div class="match" id="m92" data-deps="m79,m80">
+                <div class="match-info"><span>M92</span> <span>06.07</span></div>
+                <div class="team disabled" onclick="select('m92', this.textContent)">Ожидание M79</div>
+                <div class="team disabled" onclick="select('m92', this.textContent)">Ожидание M80</div>
+            </div>
+            <div class="match" id="m95" data-deps="m86,m88">
+                <div class="match-info"><span>M95</span> <span>07.07</span></div>
+                <div class="team disabled" onclick="select('m95', this.textContent)">Ожидание M86</div>
+                <div class="team disabled" onclick="select('m95', this.textContent)">Ожидание M88</div>
+            </div>
+            <div class="match" id="m96" data-deps="m85,m87">
+                <div class="match-info"><span>M96</span> <span>07.07</span></div>
+                <div class="team disabled" onclick="select('m96', this.textContent)">Ожидание M85</div>
+                <div class="team disabled" onclick="select('m96', this.textContent)">Ожидание M87</div>
+            </div>
         </div>
-    </div>
 
-    <!-- ПРАВАЯ СТОРОНА: Четвертьфиналы -->
-    <div class="column">
-        <div class="match" id="m99">
-            <div class="match-title"><span>M99</span> <span>12.07</span></div>
-            <div class="team empty" onclick="select('m99', this.textContent, 'm102', 0)">Победитель M91</div>
-            <div class="team empty" onclick="select('m99', this.textContent, 'm102', 1)">Победитель M92</div>
+        <!-- 1/4 Финала (Право) -->
+        <div class="round">
+            <div class="match" id="m99" data-deps="m91,m92">
+                <div class="match-info"><span>M99</span> <span>12.07</span></div>
+                <div class="team disabled" onclick="select('m99', this.textContent)">Победитель M91</div>
+                <div class="team disabled" onclick="select('m99', this.textContent)">Победитель M92</div>
+            </div>
+            <div class="match" id="m100" data-deps="m95,m96">
+                <div class="match-info"><span>M100</span> <span>12.07</span></div>
+                <div class="team disabled" onclick="select('m100', this.textContent)">Победитель M95</div>
+                <div class="team disabled" onclick="select('m100', this.textContent)">Победитель M96</div>
+            </div>
         </div>
-        <div class="match" id="m100">
-            <div class="match-title"><span>M100</span> <span>12.07</span></div>
-            <div class="team empty" onclick="select('m100', this.textContent, 'm102', 1)">Победитель M95</div>
-            <div class="team empty" onclick="select('m100', this.textContent, 'm102', 1)">Победитель M96</div>
-        </div>
-    </div>
 
-    <!-- ПРАВАЯ СТОРОНА: 1/8 финала -->
-    <div class="column">
-        <div class="match" id="m91">
-            <div class="match-title"><span>M91</span> <span>05.07</span></div>
-            <div class="team empty" onclick="select('m91', this.textContent, 'm99', 0)">Победитель M76</div>
-            <div class="team empty" onclick="select('m91', this.textContent, 'm99', 1)">Победитель M78</div>
-        </div>
-        <div class="match" id="m92">
-            <div class="match-title"><span>M92</span> <span>06.07</span></div>
-            <div class="team empty" onclick="select('m92', this.textContent, 'm99', 1)">Победитель M79</div>
-            <div class="team empty" onclick="select('m92', this.textContent, 'm99', 1)">Победитель M80</div>
-        </div>
-        <div class="match" id="m95">
-            <div class="match-title"><span>M95</span> <span>07.07</span></div>
-            <div class="team empty" onclick="select('m95', this.textContent, 'm100', 0)">Победитель M86</div>
-            <div class="team empty" onclick="select('m95', this.textContent, 'm100', 1)">Победитель M88</div>
-        </div>
-        <div class="match" id="m96">
-            <div class="match-title"><span>M96</span> <span>07.07</span></div>
-            <div class="team empty" onclick="select('m96', this.textContent, 'm100', 1)">Победитель M85</div>
-            <div class="team empty" onclick="select('m96', this.textContent, 'm100', 1)">Победитель M87</div>
-        </div>
-    </div>
-
-    <!-- ПРАВАЯ СТОРОНА: 1/16 финала -->
-    <div class="column">
-        <div class="match" id="m76">
-            <div class="match-title"><span>M76</span> <span>29.06</span></div>
-            <div class="team" onclick="select('m76', '🇧🇷 Бразилия', 'm91', 0)">🇧🇷 Бразилия</div>
-            <div class="team" onclick="select('m76', '❓ 2F', 'm91', 0)">❓ 2F</div>
-        </div>
-        <div class="match" id="m78">
-            <div class="match-title"><span>M78</span> <span>30.06</span></div>
-            <div class="team" onclick="select('m78', '🇨🇮 Кот-д\'Ивуар', 'm91', 1)">🇨🇮 Кот-д'Ивуар</div>
-            <div class="team" onclick="select('m78', '❓ 2I', 'm91', 1)">❓ 2I</div>
-        </div>
-        <div class="match" id="m79">
-            <div class="match-title"><span>M79</span> <span>01.07</span></div>
-            <div class="team" onclick="select('m79', '🇲🇽 Мексика', 'm92', 0)">🇲🇽 Мексика</div>
-            <div class="team" onclick="select('m79', '❓ 3CEFHI', 'm92', 0)">❓ 3CEFHI</div>
-        </div>
-        <div class="match" id="m80">
-            <div class="match-title"><span>M80</span> <span>01.07</span></div>
-            <div class="team" onclick="select('m80', '❓ 1L', 'm92', 1)">❓ 1L</div>
-            <div class="team" onclick="select('m80', '❓ 3EHIJK', 'm92', 1)">❓ 3EHIJK</div>
-        </div>
-        <div class="match" id="m86">
-            <div class="match-title"><span>M86</span> <span>04.07</span></div>
-            <div class="team" onclick="select('m86', '🇦🇷 Аргентина', 'm95', 0)">🇦🇷 Аргентина</div>
-            <div class="team" onclick="select('m86', '❓ 2H', 'm95', 0)">❓ 2H</div>
-        </div>
-        <div class="match" id="m88">
-            <div class="match-title"><span>M88</span> <span>03.07</span></div>
-            <div class="team" onclick="select('m88', '❓ 2D', 'm95', 1)">❓ 2D</div>
-            <div class="team" onclick="select('m88', '❓ 2G', 'm95', 1)">❓ 2G</div>
-        </div>
-        <div class="match" id="m85">
-            <div class="match-title"><span>M85</span> <span>03.07</span></div>
-            <div class="team" onclick="select('m85', '🇨🇭 Швейцария', 'm96', 0)">🇨🇭 Швейцария</div>
-            <div class="team" onclick="select('m85', '❓ 3EFGIJ', 'm96', 0)">❓ 3EFGIJ</div>
-        </div>
-        <div class="match" id="m87">
-            <div class="match-title"><span>M87</span> <span>04.07</span></div>
-            <div class="team" onclick="select('m87', '❓ 1K', 'm96', 1)">❓ 1K</div>
-            <div class="team" onclick="select('m87', '❓ 3DEIJL', 'm96', 1)">❓ 3DEIJL</div>
+        <!-- 1/2 Финала (Право) -->
+        <div class="round">
+            <div class="match" id="m102" data-deps="m99,m100">
+                <div class="match-info"><span>M102</span> <span>15.07</span></div>
+                <div class="team disabled" onclick="select('m102', this.textContent)">Победитель M99</div>
+                <div class="team disabled" onclick="select('m102', this.textContent)">Победитель M100</div>
+            </div>
         </div>
     </div>
 
@@ -320,82 +354,128 @@ button:hover {
 <button onclick="send()">📤 Отправить прогноз</button>
 
 <script>
-// Автоматически создаем стейт для всех матчей с картинки
+// Инициализация структуры данных для отслеживания прогноза
 const state = {};
-for(let i = 73; i <= 104; i++) {
-    state['m' + i] = null;
+document.querySelectorAll('.match').forEach(match => {
+    state[match.id] = null;
+});
+
+// Карта связей: какой матч куда передает своего победителя и в какой слот (0 или 1)
+const network = {
+    m74: { next: 'm89', slot: 0 }, m77: { next: 'm89', slot: 1 },
+    m73: { next: 'm90', slot: 0 }, m75: { next: 'm90', slot: 1 },
+    m83: { next: 'm93', slot: 0 }, m84: { next: 'm93', slot: 1 },
+    m81: { next: 'm94', slot: 0 }, m82: { next: 'm94', slot: 1 },
+    
+    m89: { next: 'm97', slot: 0 }, m90: { next: 'm97', slot: 1 },
+    m93: { next: 'm98', slot: 0 }, m94: { next: 'm98', slot: 1 },
+    
+    m97: { next: 'm101', slot: 0 }, m98: { next: 'm101', slot: 1 },
+    m101: { next: 'm104', slot: 0 },
+
+    m76: { next: 'm91', slot: 0 }, m78: { next: 'm91', slot: 1 },
+    m79: { next: 'm92', slot: 0 }, m80: { next: 'm92', slot: 1 },
+    m86: { next: 'm95', slot: 0 }, m88: { next: 'm95', slot: 1 },
+    m85: { next: 'm96', slot: 0 }, m87: { next: 'm96', slot: 1 },
+    
+    m91: { next: 'm99', slot: 0 }, m92: { next: 'm99', slot: 1 },
+    m95: { next: 'm100', slot: 0 }, m96: { next: 'm100', slot: 1 },
+    
+    m99: { next: 'm102', slot: 0 }, m100: { next: 'm102', slot: 1 },
+    m102: { next: 'm104', slot: 1 }
+};
+
+function select(matchId, teamName) {
+    // Предотвращаем клики по деактивированным пустым кнопкам ожидания
+    if (teamName.includes("Ожидание") || teamName.includes("Победитель") || teamName.includes("Финалист")) return;
+
+    // 1. Устанавливаем выбор в текущем матче
+    state[matchId] = teamName;
+    const currentTeams = document.querySelectorAll("#" + matchId + " .team");
+    currentTeams.forEach(t => {
+        if (t.textContent === teamName) t.classList.add("selected");
+        else t.classList.remove("selected");
+    });
+
+    // 2. Двигаем команду по цепочке вперед
+    advanceTeam(matchId, teamName);
 }
 
-function select(currentMatch, teamName, nextMatch, nextTeamIndex, loserMatch, loserMatchIndex) {
-    // Защита от кликов по пустым ячейкам
-    if (teamName.includes("Победитель") || teamName.includes("Проигравший")) return;
+function advanceTeam(currentMatchId, teamName) {
+    const edge = network[currentMatchId];
+    if (!edge) return; // Дошли до финала, двигать дальше некуда
 
-    state[currentMatch] = teamName;
+    const nextMatchId = edge.next;
+    const slotIndex = edge.slot;
+    
+    const nextMatchEl = document.getElementById(nextMatchId);
+    const nextTeams = nextMatchEl.querySelectorAll(".team");
+    const targetSlot = nextTeams[slotIndex];
 
-    // Подсвечиваем выбранную команду в текущем матче
-    const currentTeams = document.querySelectorAll("#" + currentMatch + " .team");
+    // Если старое значение в этой ячейке меняется, запускаем очистку сломанных веток дальше
+    const oldName = targetSlot.textContent;
+    if (oldName !== teamName) {
+        invalidateChain(nextMatchId, oldName);
+    }
+
+    // Записываем новое имя в ячейку следующего раунда
+    targetSlot.textContent = teamName;
+    targetSlot.classList.remove("disabled");
+}
+
+// РЕШЕНИЕ БАГА: Рекурсивная очистка цепочки при смене лидера
+function invalidateChain(matchId, nameToRemove) {
+    // Если имя было дефолтным (заглушкой), ничего зачищать не нужно
+    if (nameToRemove.includes("Ожидание") || nameToRemove.includes("Победитель") || nameToRemove.includes("Финалист")) return;
+
+    // Если в этом матче была выбрана именно удаляемая команда, сбрасываем выбор этого матча
+    if (state[matchId] === nameToRemove) {
+        state[matchId] = null;
+    }
+
+    const currentTeams = document.querySelectorAll("#" + matchId + " .team");
     currentTeams.forEach(t => {
-        t.classList.remove("selected");
-        if (t.textContent === teamName) {
-            t.classList.add("selected");
+        if (t.textContent === nameToRemove) {
+            t.classList.remove("selected");
+            // Возвращаем стандартную текстовую заглушку
+            const deps = document.getElementById(matchId).getAttribute('data-deps').split(',');
+            const matchLabel = deps[Array.from(currentTeams).indexOf(t)].toUpperCase();
+            t.textContent = matchId === 'm104' ? "Финалист" : `Ожидание ${matchLabel}`;
+            t.classList.add("disabled");
         }
     });
 
-    // Передаем победителя в следующий раунд
-    if (nextMatch) {
-        const nextMatchEl = document.getElementById(nextMatch);
-        const nextTeamSlot = nextMatchEl.querySelectorAll(".team")[nextTeamIndex];
-        
-        nextTeamSlot.textContent = teamName;
-        nextTeamSlot.classList.remove("empty");
-        
-        // Сбрасываем старые выборы в последующих матчах, если пользователь передумал
-        nextTeamSlot.classList.remove("selected");
-        state[nextMatch] = null;
-    }
-
-    // Логика для полуфиналов (M101 и M102), чтобы отправить проигравшего в матч за 3-е место
-    if (loserMatch) {
-        const currentTeamsArray = Array.from(currentTeams);
-        const loserTeamNode = currentTeamsArray.find(t => t.textContent !== teamName);
-        if (loserTeamNode && !loserTeamNode.textContent.includes("Победитель")) {
-            const loserMatchEl = document.getElementById(loserMatch);
-            const loserSlot = loserMatchEl.querySelectorAll(".team")[loserMatchIndex];
-            loserSlot.textContent = loserTeamNode.textContent;
-            loserSlot.classList.remove("empty");
-            loserSlot.classList.remove("selected");
-            state[loserMatch] = null;
-        }
+    // Идем дальше по цепочке графа сетки и чистим связь
+    const edge = network[matchId];
+    if (edge) {
+        invalidateChain(edge.next, nameToRemove);
     }
 }
 
 function send() {
     const name = prompt("Введите ваше имя:");
-
     if (!name) {
         alert("Имя обязательно");
         return;
     }
 
-    // Проверяем, сделан ли выбор в ключевых финальных матчах
-    if (!state.m104 || !state.m103) {
-        alert("Пожалуйста, дойдите до финала и заполните сетку полностью!");
+    const totalMatches = Object.keys(state).length;
+    const filledMatches = Object.values(state).filter(val => val !== null).length;
+
+    if (filledMatches < totalMatches) {
+        alert(`Ошибка! Прогноз не завершен. Вы заполнили только ${filledMatches} из ${totalMatches} матчей сетки плей-офф.`);
         return;
     }
 
     fetch("https://script.google.com/macros/s/AKfycbzIDFRF2Hj5OiTlAO2QxaMknswwz8rwkpmxuIU851KmKCtxS0h_4Q2DXZanMzu97Jp6/exec", {
         method: "POST",
-        mode: "no-cors", // Часто требуется для Google Apps Script, чтобы избежать CORS-ошибок
-        headers: {
-            "Content-Type": "application/json"
-        },
         body: JSON.stringify({
             name: name,
             bracket: state
         })
     });
 
-    alert("Прогноз успешно отправлен!");
+    alert("Великолепно! Ваш полный прогноз на плей-офф ЧМ-2026 отправлен на сервер.");
 }
 </script>
 
