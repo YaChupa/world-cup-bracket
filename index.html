@@ -166,13 +166,13 @@ button:hover {
             </div>
             <div class="match" id="m83">
                 <div class="match-info"><span>M83</span> <span>03.07 02:00</span></div>
-                <div class="team" onclick="select('m83', '2K')">2K</div>
-                <div class="team" onclick="select('m83', '2L')">2L</div>
+                <div class="team" onclick="select('m83', '🇵🇹 POR')">🇵🇹 POR</div>
+                <div class="team" onclick="select('m83', '🇭🇷 CRO')">🇭🇷 CRO</div>
             </div>
             <div class="match" id="m84">
                 <div class="match-info"><span>M84</span> <span>02.07 22:00</span></div>
                 <div class="team" onclick="select('m84', '🇪🇸 ESP')">🇪🇸 ESP</div>
-                <div class="team" onclick="select('m84', '2J')">2J</div>
+                <div class="team" onclick="select('m84', '🇦🇹 AUT')">🇦🇹 AUT</div>
             </div>
             <div class="match" id="m81">
                 <div class="match-info"><span>M81</span> <span>02.07 03:00</span></div>
@@ -182,7 +182,7 @@ button:hover {
             <div class="match" id="m82">
                 <div class="match-info"><span>M82</span> <span>01.07 23:00</span></div>
                 <div class="team" onclick="select('m82', '🇧🇪 BEL')">🇧🇪 BEL</div>
-                <div class="team" onclick="select('m82', '3AEHIJ')">3AEHIJ</div>
+                <div class="team" onclick="select('m82', '🇸🇳 SEN')">🇸🇳 SEN</div>
             </div>
         </div>
 
@@ -272,12 +272,12 @@ button:hover {
             <div class="match" id="m79">
                 <div class="match-info"><span>M79</span> <span>01.07 04:00</span></div>
                 <div class="team" onclick="select('m79', '🇲🇽 MEX')">🇲🇽 MEX</div>
-                <div class="team" onclick="select('m79', '3CEFHI')">3CEFHI</div>
+                <div class="team" onclick="select('m79', '🇪🇨 ECU')">🇪🇨 ECU</div>
             </div>
             <div class="match" id="m80">
                 <div class="match-info"><span>M80</span> <span>01.07 19:00</span></div>
-                <div class="team" onclick="select('m80', '1L')">1L</div>
-                <div class="team" onclick="select('m80', '3EHIJK')">3EHIJK</div>
+                <div class="team" onclick="select('m80', '🏴󠁧󠁢󠁥󠁮󠁧󠁿 ENG')">🏴󠁧󠁢󠁥󠁮󠁧󠁿 ENG</div>
+                <div class="team" onclick="select('m80', '🇨🇩 COD')">🇨🇩 COD</div>
             </div>
             <div class="match" id="m86">
                 <div class="match-info"><span>M86</span> <span>04.07 01:00</span></div>
@@ -292,12 +292,12 @@ button:hover {
             <div class="match" id="m85">
                 <div class="match-info"><span>M85</span> <span>03.07 06:00</span></div>
                 <div class="team" onclick="select('m85', '🇨🇭 SUI')">🇨🇭 SUI</div>
-                <div class="team" onclick="select('m85', '3EFGIJ')">3EFGIJ</div>
+                <div class="team" onclick="select('m85', '🇩🇿 ALG')">🇩🇿 ALG</div>
             </div>
             <div class="match" id="m87">
                 <div class="match-info"><span>M87</span> <span>04.07 04:30</span></div>
-                <div class="team" onclick="select('m87', '1K')">1K</div>
-                <div class="team" onclick="select('m87', '3DEIJL')">3DEIJL</div>
+                <div class="team" onclick="select('m87', '🇨🇴 COL')">🇨🇴 COL</div>
+                <div class="team" onclick="select('m87', '🇬🇭 GHA')">🇬🇭 GHA</div>
             </div>
         </div>
 
@@ -359,7 +359,6 @@ document.querySelectorAll('.match').forEach(match => {
     state[match.id] = null;
 });
 
-// Карта маршрутов графа для победителей
 const network = {
     m74: { next: 'm89', slot: 0 }, m77: { next: 'm89', slot: 1 },
     m73: { next: 'm90', slot: 0 }, m75: { next: 'm90', slot: 1 },
@@ -392,19 +391,15 @@ function select(matchId, teamName) {
         else t.classList.remove("selected");
     });
 
-    // Продвижение вперед
     if (matchId === 'm101' || matchId === 'm102') {
-        // Особая логика для полуфиналов: заполняем Финал (M104) и 3-е место (M103)
         const slot = (matchId === 'm101') ? 0 : 1;
         const loserName = Array.from(currentTeams).find(t => !t.classList.contains("selected")).textContent;
         
-        // В Финал идет выигравший
         const finalSlot = document.querySelectorAll("#m104 .team")[slot];
         if (finalSlot.textContent !== teamName) invalidateChain('m104', finalSlot.textContent);
         finalSlot.textContent = teamName;
         finalSlot.classList.remove("disabled");
 
-        // В матч за 3-е место идет проигравший
         const thirdSlot = document.querySelectorAll("#m103 .team")[slot];
         if (thirdSlot.textContent !== loserName) invalidateChain('m103', thirdSlot.textContent);
         thirdSlot.textContent = loserName;
@@ -444,7 +439,6 @@ function invalidateChain(matchId, nameToRemove) {
         }
     });
 
-    // Рекурсивный запуск очистки
     if (matchId === 'm101' || matchId === 'm102') {
         invalidateChain('m104', nameToRemove);
         invalidateChain('m103', nameToRemove);
